@@ -1,7 +1,7 @@
 import slack
 import slack.chat
 import slack.channels
-import markovgenerator
+from pymarkovchain import MarkovChain
 import pprint
 
 slack.api_token = 'xoxb-4587546526-030RU1gz9TVLOVQouCf8nVE9'
@@ -9,12 +9,12 @@ slack.api_token = 'xoxb-4587546526-030RU1gz9TVLOVQouCf8nVE9'
 with open('history.txt') as f:
     history = f.read()
 
-markov_gen = markovgenerator.MarkovGenerator(history, 200, 3)
+mc = MarkovChain("./markov")
+mc.generateDatabase(history)
+msg = mc.generateString()
 
-markov_gen.generate_words()
 
-
-#slack.chat.post_message('#eng', 'Hello slackers!', username='mybot')
+slack.chat.post_message('#mezzanine', msg, username='almosthuman')
 
 
 #print slack.channels.history('C04AX18F5')
