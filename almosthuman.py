@@ -12,9 +12,8 @@ with open('history.txt') as f:
 mc = MarkovChain("./markov")
 mc.generateDatabase(history)
 msg = mc.generateString()
-
+#print msg
 
 slack.chat.post_message('#mezzanine', msg, username='almosthuman')
 
 
-#print slack.channels.history('C04AX18F5')
