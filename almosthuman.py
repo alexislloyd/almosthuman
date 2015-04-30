@@ -8,12 +8,12 @@ sc = SlackClient(token)
 channel = '#mezzanine'
 mc = MarkovChain("./markov")
 msg_count = 0
+rand = random.randint(5, 15)
 
 if sc.rtm_connect():
     while True:
         f = open('history.txt', 'a')
         messages = sc.rtm_read()
-        rand = random.randint(5, 15)
         for msg in messages:
             if 'text' in msg:
                 if "subtype" not in msg:
@@ -32,6 +32,7 @@ if sc.rtm_connect():
                         comment = mc.generateString().replace('@','')
                         sc.api_call("chat.postMessage", channel=channel, text=comment, as_user=True) 
                         msg_count = 0
+			rand = random.randint(5, 15)
         time.sleep(1)
 else:
     print "Connection Failed, invalid token?"
