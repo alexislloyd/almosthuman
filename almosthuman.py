@@ -2,8 +2,13 @@ import time
 import random
 from pymarkovchain import MarkovChain
 from slackclient import SlackClient
+import yaml
 
-token = "xoxb-4587546526-030RU1gz9TVLOVQouCf8nVE9"
+with open("config.yml", 'r') as ymlfile:
+    cfg = yaml.load(ymlfile)
+    token = cfg['slack']['token']
+    print token
+
 sc = SlackClient(token)
 channel = '#mezzanine'
 mc = MarkovChain("./markov")
